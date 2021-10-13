@@ -1,9 +1,8 @@
 
 'use strict';
 
-const curve25519 = require('../src/curve25519_wrapper');
+const curveJs = require('curve25519-js');
 const nodeCrypto = require('crypto');
-
 
 function validatePrivKey(privKey) {
     if (privKey === undefined) {
@@ -34,7 +33,7 @@ function scrubPubKeyFormat(pubKey) {
 
 exports.createKeyPair = function(privKey) {
     validatePrivKey(privKey);
-    const keys = curve25519.keyPair(privKey);
+    const keys = curveJs.generateKeyPair(privKey);
     // prepend version byte
     var origPub = new Uint8Array(keys.pubKey);
     var pub = new Uint8Array(33);
@@ -52,7 +51,7 @@ exports.calculateAgreement = function(pubKey, privKey) {
     if (!pubKey || pubKey.byteLength != 32) {
         throw new Error("Invalid public key");
     }
-    return Buffer.from(curve25519.sharedSecret(pubKey, privKey));
+    return Buffer.from(curveJs.sharedKey(privKey, pubKey));
 };
 
 exports.calculateSignature = function(privKey, message) {
@@ -60,7 +59,7 @@ exports.calculateSignature = function(privKey, message) {
     if (!message) {
         throw new Error("Invalid message");
     }
-    return Buffer.from(curve25519.sign(privKey, message));
+    return Buffer.from(curveJs.sign(privKey, message));
 };
 
 exports.verifySignature = function(pubKey, msg, sig) {
@@ -74,7 +73,7 @@ exports.verifySignature = function(pubKey, msg, sig) {
     if (!sig || sig.byteLength != 64) {
         throw new Error("Invalid signature");
     }
-    return curve25519.verify(pubKey, msg, sig);
+    return curveJs.verify(pubKey, msg, sig);
 };
 
 exports.generateKeyPair = function() {
