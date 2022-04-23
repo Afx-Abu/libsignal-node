@@ -4,11 +4,11 @@
 const curveJs = require('curve25519-js');
 const nodeCrypto = require('crypto');
 // from: https://github.com/digitalbazaar/x25519-key-agreement-key-2019/blob/master/lib/crypto.js
-const PUBLIC_KEY_DER_PREFIX = new Uint8Array([
+const PUBLIC_KEY_DER_PREFIX = Buffer.from([
     48, 42, 48, 5, 6, 3, 43, 101, 110, 3, 33, 0
 ]);
   
-const PRIVATE_KEY_DER_PREFIX = new Uint8Array([
+const PRIVATE_KEY_DER_PREFIX = Buffer.from([
     48, 46, 2, 1, 0, 48, 5, 6, 3, 43, 101, 110, 4, 34, 4, 32
 ]);
 
