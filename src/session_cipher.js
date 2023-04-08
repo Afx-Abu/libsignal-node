@@ -160,7 +160,7 @@ class SessionCipher {
                 if (e.name == "MessageCounterError") break;
             }
         }
-        console.error("[ ⚠ ] Omitir mensaje de descifrado.. realizado ✔");
+        console.error("Skipping decrypt message");
         for (const e of errs) {
             ////console.error("Session error:" + e, e.stack);
         }
