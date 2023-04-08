@@ -10,7 +10,7 @@ Signal protocol implementation for Node.js based on
 Overview
 --------
 A ratcheting forward secrecy protocol that works in synchronous and
-asynchronous messaging environments.
+asynchronous messaging environmets.
 
 
 PreKeys
